@@ -1,8 +1,8 @@
 <div align="center">
   <img src="images/icon.png" width="128" alt="漫元 MetaManga 图标">
-</div>
 
-# 漫元 · MetaManga
+  # 漫元 · MetaManga
+</div>
 
 用于 Calibre 的漫画 AI 元数据插件：文件名解析 · AI 识别 · 标题翻译 · 批量处理 · 审核编辑
 
