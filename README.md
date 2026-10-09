@@ -78,12 +78,6 @@ API 密钥保存在 Calibre 用户配置目录中，不会写入插件 ZIP 或 G
 - [OpenRouter](https://openrouter.ai/settings/keys)：创建 OpenRouter API 密钥并访问多个模型提供商。
 - [Ollama](https://ollama.com/) / [LM Studio](https://lmstudio.ai/)：在本机运行模型，插件只发送文本。
 
-## 运行结果和审核
-
-“最近运行结果”会记录处理状态、请求次数、重试等待时间、响应长度、耗时、翻译状态、文件名角色置信度和警告。
-
-如果 AI 无法可靠区分标题、作者或社团，自动模式会跳过写入，避免错误覆盖元数据。可以使用逐本审核窗口检查并手动修正。
-
 ## 许可证和致谢
 
 本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改，遵循 GPL-3.0。
