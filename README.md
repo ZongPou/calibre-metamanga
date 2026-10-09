@@ -78,8 +78,15 @@ API 密钥保存在 Calibre 用户配置目录中，不会写入插件 ZIP 或 G
 - [OpenRouter](https://openrouter.ai/settings/keys)：创建 OpenRouter API 密钥并访问多个模型提供商。
 - [Ollama](https://ollama.com/) / [LM Studio](https://lmstudio.ai/)：在本机运行模型，插件只发送文本。
 
-## 许可证和致谢
+## 许可证
 
-本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改，遵循 GPL-3.0。
+漫元 MetaManga 基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改而成，原作者为 RelUnrelated（dan@relunrelated.com）。
 
-卷号、章节号和范围识别规则参考了 [Kavita](https://github.com/Kareadita/Kavita)（一款开源的漫画/图书阅读器），并根据本项目的漫画文件命名习惯进行了适配。本项目使用的是选择性的规则适配，不包含完整的 Kavita 扫描器；具体说明见 `THIRD_PARTY_NOTICES.md`。
+本项目包含大量修改，遵循 [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) 许可证发布。本程序按“现状”提供，不含任何担保；您可以在许可证条款下自由使用、修改和再分发。完整的许可证文本见 [LICENSE.md](LICENSE.md)。
+
+## 致谢
+
+- [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata)：本项目的基础，AI 元数据识别的核心架构来自上游项目。
+- [Kavita](https://github.com/Kareadita/Kavita)：开源漫画/图书阅读器，卷号、章节号和范围识别规则参考其实现并根据漫画文件命名习惯适配，仅做选择性规则适配，不包含完整的 Kavita 扫描器；详见 `THIRD_PARTY_NOTICES.md`。
+- [Calibre](https://calibre-ebook.com/)：优秀的开源电子书管理软件，本插件基于其插件框架开发。
+- 各 AI 服务提供商（Google Gemini、OpenAI、DeepSeek、Anthropic、OpenRouter）及 [Ollama](https://ollama.com/) / [LM Studio](https://lmstudio.ai/) 社区。
