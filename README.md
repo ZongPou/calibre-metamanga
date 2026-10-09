@@ -1,6 +1,6 @@
 # 漫元 MetaManga
 
-**版本：** 1.0.0
+**版本：** 1.0.1
 **原项目作者：** RelUnrelated（<dan@relunrelated.com>）
 **许可证：** GNU General Public License v3.0（GPLv3），详见 `LICENSE.md`。
 **更新记录：** 详见 `CHANGELOG.md`。
@@ -40,7 +40,7 @@
 
 ## 安装
 
-1. 下载 `MetaManga_v1.0.0.zip`，不要解压。
+1. 下载 `MetaManga_v1.0.1.zip`，不要解压。
 2. 打开 Calibre，进入“首选项 → 插件”。
 3. 点击右下角“从文件加载插件”，选择该 ZIP 文件。
 4. 确认安全提示并重启 Calibre。
@@ -117,7 +117,7 @@ python -m unittest discover -s tests -v
 powershell -ExecutionPolicy Bypass -File .\build_plugin.ps1
 ```
 
-生成的安装包位于 `dist\MetaManga_v1.0.0.zip`。
+生成的安装包位于 `dist\MetaManga_v1.0.1.zip`。
 
 ## 许可证和致谢
 
