@@ -115,11 +115,45 @@ class DropdownDescriptionDelegate(QStyledItemDelegate):
 
 class EditableMetadataComboBox(QComboBox):
     """Editable combo with the small QLineEdit-compatible API used by the form."""
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._append_on_pick = False
+        self._text_before_pick = ''
+        self.activated.connect(self._on_activated)
+
     def text(self):
         return self.currentText()
 
     def setText(self, value):
         self.setCurrentText(str(value))
+
+    def enableAppendOnPick(self):
+        """Dropdown picks append to the current text (comma-separated) instead of replacing it."""
+        self._append_on_pick = True
+        self._text_before_pick = self.currentText()
+        self.lineEdit().textEdited.connect(self._remember_text)
+
+    def _remember_text(self, text):
+        self._text_before_pick = text
+
+    def showPopup(self):
+        # The popup highlights items with the keyboard/mouse, which rewrite the
+        # line edit text as a preview. Snapshot the text before it opens so the
+        # pre-selection value survives for the append logic.
+        if self._append_on_pick:
+            self._text_before_pick = self.currentText()
+        super().showPopup()
+
+    def _on_activated(self, index):
+        if not self._append_on_pick:
+            return
+        picked = self.itemText(index).strip()
+        parts = [p.strip() for p in self._text_before_pick.split(',') if p.strip()]
+        if picked and picked not in parts:
+            parts.append(picked)
+        new_text = ', '.join(parts)
+        self.setEditText(new_text)
+        self._text_before_pick = new_text
 
 class MetadataReviewDialog(QDialog):
     def __init__(self, parent, metadata, cover_path):
@@ -251,6 +285,9 @@ class MetadataReviewDialog(QDialog):
                         # empty tag field visibly empty instead.
                         edit.setCurrentIndex(-1)
                         edit.setEditText('')
+                    # Picking a tag from the dropdown appends it to the text
+                    # instead of replacing what the user already entered.
+                    edit.enableAppendOnPick()
                 edit.setMinimumWidth(180)
             else:
                 edit = QLineEdit(str(value) if value else "")

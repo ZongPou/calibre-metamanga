@@ -654,6 +654,24 @@ class CalibreSmokeTests(unittest.TestCase):
         finally:
             dialog.close()
 
+    def test_review_tag_dropdown_appends_instead_of_overwriting(self):
+        result = normalize_result({}, '标题')
+        result['tag_options'] = ['漫画', '汉化']
+        dialog = ui.MetadataReviewDialog(None, result, None)
+        try:
+            combo = dialog.results['tags']['widget']
+            self.assertEqual(combo.text(), '')
+            combo.lineEdit().textEdited.emit('人工标签')
+            combo.activated.emit(combo.findText('漫画'))
+            self.assertEqual(combo.text(), '人工标签, 漫画')
+            combo.activated.emit(combo.findText('漫画'))
+            self.assertEqual(combo.text(), '人工标签, 漫画')
+            combo.activated.emit(combo.findText('汉化'))
+            self.assertEqual(combo.text(), '人工标签, 漫画, 汉化')
+            self.assertEqual(dialog.get_approved_data()['tags']['value'], '人工标签, 漫画, 汉化')
+        finally:
+            dialog.close()
+
     def test_screenshot_title_recovery_survives_provider_response_and_review(self):
         prefix = '[剥元ここ][禁漫汉化组](C108)[うずらフロンティア(剥元ここ)]'
         japanese = '娘が通勤用オナホになっちゃうまで 前日譚'

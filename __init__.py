@@ -32,7 +32,7 @@ class AIVisionMetadataWrapper(InterfaceActionBase):
     description             = _('Extract manga metadata from original filenames without uploading or analyzing cover images.')
     supported_platforms     = ['windows', 'osx', 'linux']
     author                  = 'RelUnrelated'
-    version                 = (1, 0, 0)
+    version                 = (1, 0, 1)
     minimum_calibre_version = (5, 0, 0)
 
     # THIS IS THE MAGIC STRING: 'folder_name.file_name:ClassName'
