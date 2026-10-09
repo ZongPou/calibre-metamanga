@@ -1020,12 +1020,24 @@ class AIVisionAction(InterfaceAction):
             metadata['ai_model_used'] = model_name
             metadata['api_duration'] = round(elapsed, 1)
             usage = res_json.get('usage', {}) or {}
+            usage_meta = res_json.get('usageMetadata', {}) or {}
+            output_tokens = usage.get('completion_tokens', usage.get('output_tokens',
+                                usage_meta.get('candidatesTokenCount')))
+            total_tokens = usage.get('total_tokens', usage_meta.get('totalTokenCount'))
+            if total_tokens is None:
+                # Anthropic has no total field; derive it from input + output.
+                prompt_tokens = usage.get('prompt_tokens', usage.get('input_tokens',
+                                        usage_meta.get('promptTokenCount')))
+                if prompt_tokens is not None and output_tokens is not None:
+                    total_tokens = prompt_tokens + output_tokens
+                elif output_tokens is not None:
+                    total_tokens = output_tokens
             metadata['request_metrics'] = {
                 'request_attempts': attempt + 1, 'retry_wait_seconds': retry_wait_seconds,
                 'attempt_timings': request_timings, 'response_characters': len(raw_text),
                 'response_bytes': len(response_body),
-                'output_tokens': usage.get('completion_tokens', usage.get('output_tokens',
-                                    (res_json.get('usageMetadata', {}) or {}).get('candidatesTokenCount'))),
+                'output_tokens': output_tokens,
+                'total_tokens': total_tokens,
                 'reasoning_tokens': (usage.get('completion_tokens_details') or {}).get('reasoning_tokens'),
                 'deepseek_thinking': payload.get('thinking', {}).get('type') if provider == 'DeepSeek' else None,
             }
@@ -1048,6 +1060,10 @@ class AIVisionAction(InterfaceAction):
                         metrics['output_tokens'] += previous['output_tokens']
                     else:
                         metrics['output_tokens'] = None
+                    if metrics.get('total_tokens') is not None and previous.get('total_tokens') is not None:
+                        metrics['total_tokens'] += previous['total_tokens']
+                    else:
+                        metrics['total_tokens'] = None
                     if metrics.get('reasoning_tokens') is not None and previous.get('reasoning_tokens') is not None:
                         metrics['reasoning_tokens'] += previous['reasoning_tokens']
                     else:

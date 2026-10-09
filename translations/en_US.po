@@ -253,12 +253,8 @@ msgstr "AI"
 
 #: ui.py:59
 #, python-brace-format
-msgid ""
-"<center><b>{0} : {1}</b><br><span style='color: gray; font-size: "
-"10px;'><i>(Processed in {2} seconds)</i></span></center>"
-msgstr ""
-"<center><b>{0} : {1}</b><br><span style='color: gray; font-size: "
-"10px;'><i>(Processed in {2} seconds)</i></span></center>"
+msgid "Processed in {0} seconds; confidence: {1}; tokens: {2}"
+msgstr "Processed in {0} seconds; confidence: {1}; tokens: {2}"
 
 #: ui.py:116 ui.py:151 ui.py:210 ui.py:415
 msgid "Overwrite"

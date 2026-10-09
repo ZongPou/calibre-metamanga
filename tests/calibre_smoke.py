@@ -672,6 +672,29 @@ class CalibreSmokeTests(unittest.TestCase):
         finally:
             dialog.close()
 
+    def test_review_header_shows_tokens_without_parens_or_italics(self):
+        main.prefs.clear()
+        main.prefs['ai_provider'] = 'OpenAI'
+        context = {'original_filename': '紫藤花开', 'parsed_filename': parse_filename('紫藤花开').as_dict()}
+        response = {'choices': [{'message': {'content': json.dumps({'title': '紫藤花开'})}}],
+                    'usage': {'prompt_tokens': 9300, 'completion_tokens': 3045, 'total_tokens': 12345}}
+        mock_response = unittest.mock.MagicMock()
+        mock_response.__enter__.return_value.read.return_value = json.dumps(response).encode()
+        with patch('urllib.request.urlopen', return_value=mock_response):
+            result = main.AIVisionAction.run_api_request(None, 2, None, '', context)
+        metadata = result[1]
+        self.assertEqual(metadata['request_metrics']['total_tokens'], 12345)
+        dialog = ui.MetadataReviewDialog(None, metadata, None)
+        try:
+            header = dialog.header_label.text()
+            self.assertIn('耗时:', header)
+            self.assertIn('消耗tokens:12345', header)
+            self.assertNotIn('(', header)
+            self.assertNotIn('（', header)
+            self.assertNotIn('<i>', header)
+        finally:
+            dialog.close()
+
     def test_screenshot_title_recovery_survives_provider_response_and_review(self):
         prefix = '[剥元ここ][禁漫汉化组](C108)[うずらフロンティア(剥元ここ)]'
         japanese = '娘が通勤用オナホになっちゃうまで 前日譚'

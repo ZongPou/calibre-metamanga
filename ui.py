@@ -32,7 +32,7 @@ _ZH_UI = {
     'Manual input only. AI suggestions are disabled; enter a value and check the box to write it.': '仅限手动输入。AI 建议已禁用；请输入值并勾选复选框后写入。',
     '(Julian Date)': '（儒略日期）', '(Week №)': '（周序号）', 'Invalid metadata': '元数据无效', 'Overwrite': '覆盖', 'Append': '追加',
     'Source: ': '来源：', '; Comments source: ': '；备注来源：', '; cover_image_supplied: false; cover preview is local only.': '；未发送封面；封面预览仅在本地显示。',
-    "<center><b>{0} : {1}</b><br><span style='color: gray; font-size: 10px;'><i>(Processed in {2} seconds; confidence: {3})</i></span></center>": "<center><b>{0}：{1}</b><br><span style='color: gray; font-size: 10px;'><i>（耗时 {2} 秒；置信度：{3}）</i></span></center>",
+    'Processed in {0} seconds; confidence: {1}; tokens: {2}': '耗时:{0}秒；置信度:{1}；消耗tokens:{2}',
     'yes': '是', 'no': '否', 'none': '无',
     'Original title': '原文标题', 'Circle': '社团', 'Translation group': '汉化组', 'Event': '展会', 'Edition': '版本', 'Title source': '标题来源',
     'AI source title: ': 'AI 识别的原文标题：', 'AI source authors: ': 'AI 识别的作者：', 'Chapter': '章节', 'Volume range': '卷号范围', 'Chapter range': '章节范围', 'Source title language: ': '原文语言：',
@@ -171,11 +171,15 @@ class MetadataReviewDialog(QDialog):
         provider_name = metadata.get('ai_provider', _('AI'))
         duration = metadata.get('api_duration', 0.0)
         confidence = metadata.get('confidence')
+        total_tokens = (metadata.get('request_metrics', {}) or {}).get('total_tokens')
         # Keep the header compact; detailed evidence remains available in run history.
+        stats_text = _("Processed in {0} seconds; confidence: {1}; tokens: {2}").format(
+            duration, confidence if confidence is not None else "?",
+            total_tokens if total_tokens is not None else "?")
         header_text = _(
             "<center><b>{0} : {1}</b><br>"
-            "<span style='color: gray; font-size: 10px;'><i>(Processed in {2} seconds; confidence: {3})</i></span></center>"
-        ).format(escape(str(provider_name)), escape(str(model_name)), duration, confidence if confidence is not None else "?")
+            "<span style='color: gray; font-size: 10px;'>{2}</span></center>"
+        ).format(escape(str(provider_name)), escape(str(model_name)), stats_text)
         
         self.header_label = QLabel(header_text)
         self.header_label.setWordWrap(True)
