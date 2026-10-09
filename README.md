@@ -84,22 +84,6 @@ API 密钥保存在 Calibre 用户配置目录中，不会写入插件 ZIP 或 G
 
 如果 AI 无法可靠区分标题、作者或社团，自动模式会跳过写入，避免错误覆盖元数据。可以使用逐本审核窗口检查并手动修正。
 
-## 开发和打包
-
-运行单元测试：
-
-```powershell
-python -m unittest discover -s tests -v
-```
-
-构建安装包：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\build_plugin.ps1
-```
-
-生成的安装包位于 `dist\` 目录。
-
 ## 许可证和致谢
 
 本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改，遵循 GPL-3.0。
