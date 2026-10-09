@@ -7,7 +7,7 @@
 
 ## 项目简介
 
-漫元是一个用于 Calibre 的 AI 元数据插件，主要从 `#original_filename` 和现有书籍元数据中提取漫画标题、作者、丛书、卷号、语言和备注，并在需要时翻译标题。
+漫元是一个用于 Calibre 的 AI 元数据插件，直接读取文件名，并结合现有书籍元数据提取漫画标题、作者、丛书、卷号、语言和备注，在需要时翻译标题。
 
 插件只发送文件名和元数据文本，不上传或分析封面图片。中文标题优先保留；日语、英语、韩语以及混合语言标题可以交给配置的 AI 翻译为简体中文。
 
@@ -33,9 +33,9 @@
 
 ## 文件名和元数据来源
 
-建议在 Calibre 中建立自定义文本列，查找名称设为 `#original_filename`，并保存完整的原始文件名。
+插件直接读取文件名进行识别，无需创建自定义文件名列或手动复制文件名。
 
-当该字段为空时，插件会尝试使用分析历史或当前书名恢复输入，但会将其标记为不确定来源。Calibre 目录名只能作为备用证据，不能当作已验证的原始文件名。
+对于已经编辑过元数据的书籍，插件会同时读取现有元数据，方便在逐本审核窗口中检查、补充和修改。
 
 插件会尽量保留已有的 Comments。空 Comments 会补充原始文件名或历史输入；已有内容不会被无故清空。分析历史中会保存标题来源、原始标题、AI 返回值、置信度和警告。
 
@@ -59,10 +59,12 @@
 API 密钥保存在 Calibre 用户配置目录中，不会写入插件 ZIP 或 GitHub 源码。Windows 默认位置通常是：
 
 ```text
-%APPDATA%\calibre\plugins\ai_vision_metadata.json
+%APPDATA%\calibre\plugins\metamanga.json
 ```
 
-不要把这个文件、`.env` 文件或任何真实 API 密钥提交到远程仓库。
+首次使用新版插件时，会自动将旧配置 `ai_vision_metadata.json` 中的 API 密钥、模型、提示词和设置复制到新配置中。已有的非空新配置不会被覆盖，旧文件保留作为备份。
+
+不要把新旧配置文件、`.env` 文件或任何真实 API 密钥提交到远程仓库。
 
 ## 使用方法
 
@@ -72,7 +74,7 @@ API 密钥保存在 Calibre 用户配置目录中，不会写入插件 ZIP 或 G
 4. 自动模式会在验证通过后写入支持的字段。
 5. 逐本审核模式会显示 AI 建议和现有元数据，可以直接编辑后保存。
 
-审核窗口中，勾选需要写入的字段即可。标签可以从 Calibre 书库已有标签中选择，也可以直接输入；语言显示使用中文名称。出版日期使用 `YYYY-MM-DD` 格式。
+审核窗口中可以直接编辑各项元数据，确认后保存。标签可以从 Calibre 书库已有标签中选择，也可以直接输入；语言显示使用中文名称。出版日期使用 `YYYY-MM-DD` 格式。
 
 ## AI 服务
 
@@ -107,5 +109,6 @@ powershell -ExecutionPolicy Bypass -File .\build_plugin.ps1
 
 ## 许可证和致谢
 
-本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改，遵循 GPL-3.0。Kavita 命名解析规则的适配说明见 `THIRD_PARTY_NOTICES.md`。
+本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改，遵循 GPL-3.0。
 
+卷号、章节号和范围识别规则参考了 [Kavita](https://github.com/Kareadita/Kavita)，并根据本项目的漫画文件命名习惯进行了适配。本项目使用的是选择性的规则适配，不包含完整的 Kavita 扫描器；具体说明见 `THIRD_PARTY_NOTICES.md`。

@@ -1,7 +1,7 @@
 $ErrorActionPreference = 'Stop'
 $root = $PSScriptRoot
 $dist = Join-Path $root 'dist'
-$zip = Join-Path $dist 'MetaManga_v1.6.30.zip'
+$zip = Join-Path $dist 'MetaManga_v1.0.0.zip'
 New-Item -ItemType Directory -Path $dist -Force | Out-Null
 if (Test-Path -LiteralPath $zip) { Remove-Item -LiteralPath $zip -Force }
 
