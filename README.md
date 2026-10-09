@@ -6,11 +6,6 @@
 
 用于 Calibre 的漫画 AI 元数据插件：文件名解析 · AI 识别 · 标题翻译 · 批量处理 · 审核编辑
 
-**版本：** 1.0.1
-**原项目作者：** RelUnrelated（<dan@relunrelated.com>）
-**许可证：** GNU General Public License v3.0（GPLv3），详见 `LICENSE.md`。
-**更新记录：** 详见 `CHANGELOG.md`。
-
 本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 二次开发，保留原项目的 GPL-3.0 许可证和内部配置兼容性，并在此基础上补齐了中文界面、多语言标题翻译、漫画文件名解析和逐本审核编辑等功能。
 
 ## 项目简介
