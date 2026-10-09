@@ -111,4 +111,4 @@ powershell -ExecutionPolicy Bypass -File .\build_plugin.ps1
 
 本项目基于 [RelUnrelated/calibre-ai-vision-metadata](https://github.com/RelUnrelated/calibre-ai-vision-metadata) 修改，遵循 GPL-3.0。
 
-卷号、章节号和范围识别规则参考了 [Kavita](https://github.com/Kareadita/Kavita)，并根据本项目的漫画文件命名习惯进行了适配。本项目使用的是选择性的规则适配，不包含完整的 Kavita 扫描器；具体说明见 `THIRD_PARTY_NOTICES.md`。
+卷号、章节号和范围识别规则参考了 [Kavita](https://github.com/Kareadita/Kavita)（一款开源的漫画/图书阅读器），并根据本项目的漫画文件命名习惯进行了适配。本项目使用的是选择性的规则适配，不包含完整的 Kavita 扫描器；具体说明见 `THIRD_PARTY_NOTICES.md`。
