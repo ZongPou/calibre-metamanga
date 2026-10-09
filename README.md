@@ -59,7 +59,7 @@ API 密钥保存在 Calibre 用户配置目录中，不会写入插件 ZIP 或 G
 %APPDATA%\calibre\plugins\metamanga.json
 ```
 
-首次使用新版插件时，会自动将旧配置 `ai_vision_metadata.json` 中的 API 密钥、模型、提示词和设置复制到新配置中。已有的非空新配置不会被覆盖，旧文件保留作为备份。
+插件的配置文件为 `metamanga.json`。首次使用新版插件时，会自动将旧配置文件 `ai_vision_metadata.json` 中的 API 密钥、模型、提示词和设置复制到 `metamanga.json` 中；已有的非空配置不会被覆盖，旧文件保留作为备份。
 
 ## 使用方法
 
